@@ -8,6 +8,8 @@ interface State {
   entry: AnimePlanetEntry;
 }
 
+type EntryCollection = Array<{ key: string; value: AnimePlanetEntry }>;
+
 const defaultEntry: AnimePlanetEntry = {
   slug: '',
   links: [],
@@ -28,11 +30,28 @@ export const useNotesStore = defineStore('anime-planet-store', {
     };
   },
   actions: {
-    // tbd(note: string): void {
-    // },
+    importEntries(entries: EntryCollection): void {
+      // this.entry
+    },
   },
   getters: {
-    // tbdgetter(): string {
-    // },
+    currentKey: (): string => {
+      const siteInfo = getSiteInfo();
+      return `apn:${siteInfo.type}:${siteInfo.id}`;
+    },
+    allEntries: (): (() => EntryCollection) => {
+      return () => {
+        const entries: EntryCollection = [];
+        for (let index = 0; index < localStorage.length; index++) {
+          const key = localStorage.key(index);
+          if (key === null || !key.startsWith('apn:')) {
+            continue;
+          }
+          const value = useLocalStorage(key, {}, { writeDefaults: false }).value as unknown as AnimePlanetEntry;
+          entries.push({ key, value });
+        }
+        return entries;
+      };
+    },
   },
 });

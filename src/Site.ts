@@ -4,15 +4,19 @@ import 'primeflex/primeflex.css';
 import 'primeicons/primeicons.css';
 
 import pWaitFor from 'p-wait-for';
-import { createPinia, PiniaVuePlugin } from 'pinia';
+import { createPinia, Pinia, PiniaVuePlugin } from 'pinia';
 import * as PrimeVue from 'primevue/config';
 import { Logger } from 'ts-log';
 import { isSomething, isString } from 'ts-type-guards';
 import Vue from 'vue';
 
+import generateHeaders from '@/Header';
 import NotesApp from '@/NotesApp.vue';
 import { provideSiteInfo } from '@/SiteInfo';
 import { type SiteInfo } from '@/types/SiteInfo';
+import logger from '@/Utils/Logger';
+import Settings from '@/Utils/Settings/Settings';
+import Storage from '@/Utils/Storage';
 
 export default class Site {
   private readonly logger: Logger;
@@ -30,10 +34,11 @@ export default class Site {
         return siteInfo;
       })
       .then(this.createVue.bind(this))
+      .then(this.createSettings.bind(this))
       .catch((error) => this.logger.error(error));
   }
 
-  private createVue(siteInfo: SiteInfo): void {
+  private createVue(siteInfo: SiteInfo): Pinia {
     this.logger.info('intializing / creating vue container elements ...');
     const vueTarget = this.createVueTarget();
 
@@ -49,6 +54,17 @@ export default class Site {
       pinia,
       render: (h) => h(NotesApp),
     });
+
+    return pinia;
+  }
+
+  private createSettings(pinia: Pinia): void {
+    new Settings(
+      new Storage(window.localStorage, `${generateHeaders(false).name || 'userscript'}-settings`),
+      logger.getLogger('settings'),
+    )
+      .onNewSettings((settings) => logger.info('is enabled:', settings.enabled))
+      .registerDialog(pinia);
   }
 
   private createVueTarget(): HTMLDivElement {
