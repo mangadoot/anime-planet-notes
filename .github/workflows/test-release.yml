@@ -19,5 +19,4 @@ jobs:
       - name: Release Test
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
         run: yarn semantic-release --dry-run --branches ${{ steps.branch-name.outputs.current_branch }}
