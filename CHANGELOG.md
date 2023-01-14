@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.0](https://github.com/mangadoot/anime-planet-notes/compare/v1.0.0...v1.1.0) (2023-01-14)
+
+
+### Features
+
+* add ability to export all saved data ([9a05e0b](https://github.com/mangadoot/anime-planet-notes/commit/9a05e0bf6499592e13d1c7efa362f1ba65fe9c00))
+
+
+### Documentation
+
+* fix release url ([c9ca20b](https://github.com/mangadoot/anime-planet-notes/commit/c9ca20b647550e23d5d874d9bd9c0eff9a8e3969))
+
 ## 1.0.0 (2023-01-14)
 
 
