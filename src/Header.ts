@@ -5,7 +5,7 @@ function generateHeaders(isDevelopment: boolean, buildVersion?: string): Webpack
   const header: WebpackUserscript.HeaderObject = {
     name: 'anime-planet-notes',
     description: 'allows to add notes to anime-planet entries',
-    version: buildVersion !== undefined ? buildVersion : '[version]',
+    version: buildVersion === undefined ? '[version]' : buildVersion,
     author: 'mangadoot',
     namespace: 'https://github.com/mangadoot',
     license: 'MIT',
