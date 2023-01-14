@@ -5,8 +5,8 @@ The data is saved in the browsers localstorage.
 
 ## Installation
 
-A userscript manager (e.g. Greasemonkey, Tampermonkey, Violentmonkey, ...) is required to run this script.
+To run this script an userscript manager is required. E.g. Greasemonkey, Tampermonkey, Violentmonkey.
 
-Install by downloading the [latest release](https://github.com/mangadoot/anime-planet-notes/releases/download/latests/anime-planet-notes.user.js) userscript.
+Install the userscript by downloading the latest release: [anime-planet-notes.user.js](https://github.com/mangadoot/anime-planet-notes/releases/latest/download/anime-planet-notes.user.js).
 
-The userscript manager should install it automatically. If not, check it's respective docs.
+The userscript manager should install it automatically when the download is triggered. If not, check its respective docs.
