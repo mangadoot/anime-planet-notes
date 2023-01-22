@@ -14,6 +14,7 @@ const defaultEntry: AnimePlanetEntry = {
   slug: '',
   links: [],
   note: '',
+  updated: undefined,
 };
 
 export const useNotesStore = defineStore('anime-planet-store', {
@@ -24,6 +25,7 @@ export const useNotesStore = defineStore('anime-planet-store', {
         `apn:${siteInfo.type}:${siteInfo.id}`,
         { ...defaultEntry, slug: siteInfo.slug },
         {
+          mergeDefaults: true,
           writeDefaults: false,
         },
       ) as unknown as AnimePlanetEntry,
