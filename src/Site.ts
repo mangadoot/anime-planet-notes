@@ -3,16 +3,18 @@ import 'primevue/resources/themes/nova/theme.css';
 import 'primeflex/primeflex.css';
 import 'primeicons/primeicons.css';
 
+import dayjs from 'dayjs';
 import pWaitFor from 'p-wait-for';
 import { createPinia, Pinia, PiniaVuePlugin } from 'pinia';
 import * as PrimeVue from 'primevue/config';
 import { Logger } from 'ts-log';
-import { isSomething, isString } from 'ts-type-guards';
+import { is, isSomething, isString } from 'ts-type-guards';
 import Vue from 'vue';
 
 import generateHeaders from '@/Header';
 import NotesApp from '@/NotesApp.vue';
 import { provideSiteInfo } from '@/SiteInfo';
+import { useNotesStore } from '@/Stores/NotesStore';
 import { type SiteInfo } from '@/types/SiteInfo';
 import logger from '@/Utils/Logger';
 import Settings from '@/Utils/Settings/Settings';
@@ -35,6 +37,7 @@ export default class Site {
       })
       .then(this.createVue.bind(this))
       .then(this.createSettings.bind(this))
+      .then(this.addStatusListener.bind(this))
       .catch((error) => this.logger.error(error));
   }
 
@@ -65,6 +68,18 @@ export default class Site {
     )
       .onNewSettings((settings) => logger.info('is enabled:', settings.enabled))
       .registerDialog(pinia);
+  }
+
+  /** listens to the read/watch-status of the manga/anime */
+  private addStatusListener(): void {
+    const form = document.querySelector('.myListBar');
+    if (!is(HTMLFormElement)(form)) {
+      return;
+    }
+    form.addEventListener('change', () => {
+      const store = useNotesStore();
+      store.entry.updated = dayjs().unix();
+    });
   }
 
   private createVueTarget(): HTMLDivElement {
