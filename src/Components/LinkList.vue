@@ -17,6 +17,7 @@
 </template>
 
 <script setup lang="ts">
+import dayjs from 'dayjs';
 import Button from 'primevue/button/Button';
 import { ref } from 'vue';
 
@@ -28,6 +29,7 @@ const showDialog = ref(false);
 
 function onLinkSave(newLink: string): void {
   store.entry.links.push(newLink);
+  updateUpdated();
   showDialog.value = false;
 }
 function removeLink(link: string): void {
@@ -35,6 +37,10 @@ function removeLink(link: string): void {
   if (linkIndex !== -1) {
     store.entry.links.splice(linkIndex, 1);
   }
+  updateUpdated();
+}
+function updateUpdated(): void {
+  store.entry.updated = dayjs().unix();
 }
 </script>
 
