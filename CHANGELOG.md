@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file. See
 [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.0](https://github.com/mangadoot/anime-planet-notes/compare/v1.1.0...v1.2.0) (2023-01-22)
+
+
+### Features
+
+* add userscript icon ([dd1cb68](https://github.com/mangadoot/anime-planet-notes/commit/dd1cb68843f5a633950c312358c525cdc4158792))
+* show last updated date of an entry ([b41061a](https://github.com/mangadoot/anime-planet-notes/commit/b41061ad2ad0323ed44e7a179e995c6c1a379587))
+* update updated-date on state changes ([adc891f](https://github.com/mangadoot/anime-planet-notes/commit/adc891fc50b443b075758d278cef5a4628879458))
+
+
+### Bug Fixes
+
+* set mergedefaults on our localstore-usage ([1f37e90](https://github.com/mangadoot/anime-planet-notes/commit/1f37e905fe8b9c56588e26cd63a2c06e11aa0979))
+
 ## [1.1.0](https://github.com/mangadoot/anime-planet-notes/compare/v1.0.0...v1.1.0) (2023-01-14)
 
 
