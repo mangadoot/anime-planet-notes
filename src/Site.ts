@@ -15,6 +15,7 @@ import generateHeaders from '@/Header';
 import NotesApp from '@/NotesApp.vue';
 import { provideSiteInfo } from '@/SiteInfo';
 import { useNotesStore } from '@/Stores/NotesStore';
+import { AnimePlanetMangaData } from '@/types/AnimePlanetMangaData';
 import { type SiteInfo } from '@/types/SiteInfo';
 import logger from '@/Utils/Logger';
 import Settings from '@/Utils/Settings/Settings';
@@ -37,7 +38,7 @@ export default class Site {
       })
       .then(this.createVue.bind(this))
       .then(this.createSettings.bind(this))
-      .then(this.addStatusListener.bind(this))
+      .then(this.addMangaStatusListener.bind(this))
       .catch((error) => this.logger.error(error));
   }
 
@@ -70,16 +71,51 @@ export default class Site {
       .registerDialog(pinia);
   }
 
-  /** listens to the read/watch-status of the manga/anime */
-  private addStatusListener(): void {
-    const form = document.querySelector('.myListBar');
+  /** listens to the read/watch-status of the manga */
+  private addMangaStatusListener(): void {
+    const form = document.querySelector('.myListBar[data-mode="manga"]');
     if (!is(HTMLFormElement)(form)) {
       return;
     }
     form.addEventListener('change', () => {
       const store = useNotesStore();
       store.entry.updated = dayjs().unix();
+      this.updateMangaData(form);
     });
+  }
+
+  /** updates the "mangadata" in the store based on the user-selected read-status and the chapters/volumes selected */
+  private updateMangaData(form: HTMLFormElement): void {
+    const formData = new FormData(form);
+
+    const statusSelect = form.querySelector('.changeStatus');
+    if (!is(HTMLSelectElement)(statusSelect)) {
+      return;
+    }
+    formData.append('status', statusSelect.value);
+    this.logger.debug('form changed', formData);
+    const data = Object.fromEntries(formData);
+
+    if (!this.isMangaData(data)) {
+      return;
+    }
+    this.logger.debug('setting mangadata ...', data);
+    const store = useNotesStore();
+    store.entry.data = {
+      manga: {
+        chapters: data.chapters,
+        status: data.status,
+        volumes: data.volumes,
+      },
+    };
+  }
+
+  private isMangaData(value: unknown): value is AnimePlanetMangaData {
+    return (
+      isString((value as AnimePlanetMangaData).chapters)
+      && isString((value as AnimePlanetMangaData).volumes)
+      && isString((value as AnimePlanetMangaData).status)
+    );
   }
 
   private createVueTarget(): HTMLDivElement {
