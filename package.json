@@ -18,7 +18,7 @@
     "watch": "webpack watch --mode=development"
   },
   "dependencies": {
-    "@vueuse/core": "^9.3.0",
+    "@vueuse/core": "^9.12.0",
     "axios": "^0.25.0",
     "axios-userscript-adapter": "^0.1.8",
     "css-loader": "^6.5.1",
