@@ -36,7 +36,7 @@
     "primevue": "^2.0.0",
     "rimraf": "^3.0.2",
     "sass": "^1.49.0",
-    "sass-loader": "^12.4.0",
+    "sass-loader": "^13.2.0",
     "ts-loader": "^9.2.2",
     "ts-log": "^2.2.4",
     "ts-type-guards": "^0.7.0",
