@@ -29,7 +29,7 @@
     "localstory": "^0.9.1",
     "loglevel": "^1.8.0",
     "loglevel-plugin-prefix": "^0.8.4",
-    "p-wait-for": "^5.0.0",
+    "p-wait-for": "^5.0.2",
     "pinia": "^2.0.33",
     "primeflex": "^2.0.0",
     "primeicons": "^5.0.0",
