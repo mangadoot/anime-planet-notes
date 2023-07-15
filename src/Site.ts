@@ -132,7 +132,9 @@ export default class Site {
   }
 
   private async extractSiteInfo(): Promise<SiteInfo> {
-    await pWaitFor(() => isSomething(unsafeWindow.AP_VARS), { timeout: 2000 });
+    await pWaitFor(() => isSomething(unsafeWindow.AP_VARS) && isSomething(unsafeWindow.AP_VARS.ENTRY_INFO), {
+      timeout: 2000,
+    });
 
     if (!isSomething(unsafeWindow.AP_VARS)) {
       throw new Error('cannot extract site info: AP_VARS not set!');
